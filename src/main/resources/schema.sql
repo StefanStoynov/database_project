@@ -1,3 +1,4 @@
+-- table will be created by schema update of spring booth autoconfiguration in Hibernate
 create table person
 (
     id integer not null,

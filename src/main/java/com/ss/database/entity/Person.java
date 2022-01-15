@@ -4,14 +4,17 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "person")
+//@Table is not necessary if the names matches
+//@Table(name="person")
+//@NamedQuery is working with Entities. in the query Person is Entity
+@NamedQuery(name="find_all_persons", query = "select p from Person p")
 public class Person {
     @Id
     //hibernate will take care of incrementing the id column. Creates a sequence and use it to populate id
     @GeneratedValue
     private int id;
 
-    @Column(name="name")
+    //@Column(name="name")
     private String name;
     private String location;
     private Date birthDate;
@@ -28,7 +31,7 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public Person( String name, String location, Date birthDate) {
+    public Person(String name, String location, Date birthDate) {
         super();
         this.name = name;
         this.location = location;
@@ -67,7 +70,7 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    //if we dont have this method we will receive hashcode when we log Person
+    //if we don't have this method we will receive hashcode when we log Person
     @Override
     public String toString() {
         return "\nPerson{" +
