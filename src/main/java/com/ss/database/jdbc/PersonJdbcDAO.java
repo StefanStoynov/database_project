@@ -21,7 +21,7 @@ public class PersonJdbcDAO {
     }
 
     public Person findById(int id){
-        //new BeanPropertyRowMapper<>(Person.class) maps the result with Person class
+        //queryForObject querying for specific object
         return jdbcTemplate.queryForObject("select * from person where id = ?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(Person.class));
