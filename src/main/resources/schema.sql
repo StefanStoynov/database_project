@@ -8,8 +8,8 @@ create table person
 );
 
 INSERT INTO PERSON (ID, NAME, LOCATION, BIRTH_DATE )
-VALUES(10001,  'Ranga', 'Hyderabad',sysdate());
+VALUES(10001, 'Ranga', 'Hyderabad', sysdate());
 INSERT INTO PERSON (ID, NAME, LOCATION, BIRTH_DATE )
-VALUES(10002,  'James', 'New York',sysdate());
+VALUES(10002, 'James', 'New York', sysdate());
 INSERT INTO PERSON (ID, NAME, LOCATION, BIRTH_DATE )
-VALUES(10003,  'Pieter', 'Amsterdam',sysdate());
+VALUES(10003, 'Pieter', 'Amsterdam', sysdate());
