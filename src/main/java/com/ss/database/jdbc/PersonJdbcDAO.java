@@ -4,8 +4,11 @@ import com.ss.database.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -15,10 +18,30 @@ public class PersonJdbcDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    //select * from person"
+    //if columns don't match with the class we want to map, we can create a custom mapper
+    class PersonRowMapper implements RowMapper<Person>{
+        //how do we want to map row with person
+        @Override
+        public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Person person = new Person();
+            person.setId(rs.getInt("id"));
+            person.setName(rs.getString("name"));
+            person.setLocation(rs.getString("location"));
+            person.setBirthDate(rs.getTimestamp("birth_date"));
+            return person;
+        }
+    }
+//    //use BeanPropertyRowMapper
+//    //select * from person"
+//    public List<Person> findAll(){
+//       //new BeanPropertyRowMapper<>(Person.class) maps the result with Person class
+//       return jdbcTemplate.query("select * from person",new BeanPropertyRowMapper<>(Person.class));
+//    }
+
+    //use custom PersonRowMapper
     public List<Person> findAll(){
-       //new BeanPropertyRowMapper<>(Person.class) maps the result with Person class
-       return jdbcTemplate.query("select * from person",new BeanPropertyRowMapper<>(Person.class));
+        //new BeanPropertyRowMapper<>(Person.class) maps the result with Person class
+        return jdbcTemplate.query("select * from person",new PersonRowMapper());
     }
 
     public Person findById(int id){
