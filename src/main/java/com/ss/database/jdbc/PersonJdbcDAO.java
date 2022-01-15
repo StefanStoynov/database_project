@@ -26,4 +26,11 @@ public class PersonJdbcDAO {
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(Person.class));
     }
+
+    //update will return how many rows were deleted
+    public int deleteById(int id){
+        //update use for update or delete an object
+        return jdbcTemplate.update("delete from person where id = ?",
+                new Object[]{id});
+    }
 }
