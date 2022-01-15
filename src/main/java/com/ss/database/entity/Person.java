@@ -1,19 +1,35 @@
 package com.ss.database.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "person")
 public class Person {
+    @Id
+    //hibernate will take care of incrementing the id column. Creates a sequence and use it to populate id
+    @GeneratedValue
     private int id;
+
+    @Column(name="name")
     private String name;
     private String location;
     private Date birthDate;
 
-    //provide default no args constructor
-    public Person (){};
+    //provide default no args constructor. It is a must for hibernate
+    public Person() {
+    }
 
     public Person(int id, String name, String location, Date birthDate) {
         super();
         this.id = id;
+        this.name = name;
+        this.location = location;
+        this.birthDate = birthDate;
+    }
+
+    public Person( String name, String location, Date birthDate) {
+        super();
         this.name = name;
         this.location = location;
         this.birthDate = birthDate;
@@ -50,6 +66,7 @@ public class Person {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
     //if we dont have this method we will receive hashcode when we log Person
     @Override
     public String toString() {
